@@ -1,7 +1,7 @@
 using System;
 
 namespace dataStructure {
-  
+
     public static class Globals {
         public const int ALPHABET_SIZE = 26;
     }
@@ -51,14 +51,13 @@ namespace dataStructure {
         }
 
         public bool insertWord(string word, int i) {
-            
             int j;
             if(i == word.Length) {
                 endWord = true;
                 return true;
             }
             j = getIndex(word[i]); //get index in the alphabet for the word
-            
+
             if(alphabet[j] == null) {
                 alphabet[j] = new Node(word[i]);
             }
@@ -66,7 +65,6 @@ namespace dataStructure {
         }
 
         public bool removeWord(string word, int i) {
-            
             if(i == word.Length) {
                 if(endWord == true) {
                     endWord = false;
@@ -74,13 +72,13 @@ namespace dataStructure {
                 }
                 return false;
             }
-            
+
             Node tmp = alphabet[getIndex(word[i])]; 
-            
+
             if(tmp == null) {
                 return false;
             }
-            
+
             if(tmp.removeWord(word, i+1)) { //that means it was the end of the word
                 if(tmp.isLeaf() == true) {
                     tmp = null;
@@ -89,9 +87,8 @@ namespace dataStructure {
                 return true;
             }
             return false;
-
         }
-        
+
         public bool findWord(string word, int i) {
             if(i == word.Length) {
                 if(endWord == true) {
@@ -103,11 +100,11 @@ namespace dataStructure {
             if(tmp == null) {
                 return false;
             }
-             
+
             return tmp.findWord(word, i+1);
         }
     }
-    
+
     class Trie {
         private Node head;
 
@@ -139,7 +136,7 @@ namespace dataStructure {
                 return head.removeWord(word, 0);
             }
         }
-        
+
         public bool findWord(string word) {
             if(head == null) {
                 return false;
@@ -149,20 +146,15 @@ namespace dataStructure {
         }
     }
 
-    /*my program has to traverse a grid and return feedback to determine if the word was printed
-    the word has to be able to add and remove words as the program runs. the program also has to find 
-    words based on an input character. Let's start with the addition of words*/
-
-/*    class Tester {
+    /*class Tester {
         static void Main() {
-            string[] dictionary = new string[] {"banditos","cat", "bat", "mutt", "dog", "grape"};
-            
+            string[] dictionary = new string[] {"banditos","cat","bat","mutt","dog","grape"};
+
             Trie t = new Trie();
             for(int i = 0; i < dictionary.Length; i++) {
                 if(t.insertWord(dictionary[i])) {
                     Console.WriteLine(dictionary[i]);
                 }
-
             }
             for(int i = 0; i < dictionary.Length; i++) {
                 if(t.findWord(dictionary[i])) {
