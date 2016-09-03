@@ -16,7 +16,6 @@ namespace puzzleMaker {
         private int height;
         private int width;
         private char?[,] result;
-        private string[] resultParsed;
 
         static Random rnd;
         
@@ -39,7 +38,6 @@ namespace puzzleMaker {
             height = h;
             width = w;
             result = new char?[height, width];
-            resultParsed = new string[height];
         }
 
         void adjustIndex(ref int y, ref int x, string ydir, string xdir) {
@@ -188,8 +186,8 @@ namespace puzzleMaker {
                 if (!placeWords(words[i], this.width, this.height, ref vTracker)) {
                     if (!forceWord(words[i], vTracker)) {
                         //the wordsearch has failed
+                        Console.WriteLine("failed to place: " + words[i]);
                         words[i] = " ";
-                        Console.WriteLine("failed word placement");
                     }
                 }
             }
@@ -202,7 +200,6 @@ namespace puzzleMaker {
                     if (!result[i, j].HasValue ) {
                         result[i, j] = (char)rnd.Next(97, 122);
                     }
-                    resultParsed[i] += result[i, j];
                 }
             }
             return result;
@@ -220,10 +217,6 @@ namespace puzzleMaker {
                 }
             Console.Write("\n");
             }
-        }
-
-        public string[] getGridParsed() {
-            return resultParsed;
         }
     }
 
