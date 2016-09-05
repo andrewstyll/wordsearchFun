@@ -91,7 +91,7 @@ namespace dataStructure {
             return false;
 
         }
-        
+
         public bool findWord(string word, int i) {
             if(i == word.Length) {
                 if(endWord == true) {
@@ -105,6 +105,19 @@ namespace dataStructure {
             }
              
             return tmp.findWord(word, i+1);
+        }
+
+        //ca is the string. ca.length = 2
+        public bool stringExists(string word, int i) {
+            if(i == word.Length) {
+                return true;
+            }
+            Node tmp = alphabet[getIndex(word[i])];
+            if(tmp == null) {
+                return false;
+            }
+             
+            return tmp.stringExists(word, i+1);
         }
     }
     
@@ -148,13 +161,21 @@ namespace dataStructure {
                 return head.findWord(word, 0);
             }
         }
+        
+        public bool stringExists(string word) {
+            if(head == null) {
+                return false;
+            } else {
+                return head.stringExists(word, 0);
+            }
+        }
     }
 
     /*my program has to traverse a grid and return feedback to determine if the word was printed
     the word has to be able to add and remove words as the program runs. the program also has to find 
     words based on an input character. Let's start with the addition of words*/
 
-/*    class Tester {
+    /*class Tester {
         static void Main() {
             string[] dictionary = new string[] {"banditos","cat", "bat", "mutt", "dog", "grape"};
             
@@ -169,6 +190,9 @@ namespace dataStructure {
                 if(t.findWord(dictionary[i])) {
                     Console.WriteLine(dictionary[i]);
                 }
+            }
+            if(!t.stringExists("al;kdsjf")) {
+                Console.WriteLine("NOPE");
             }
             for(int i = 0; i < dictionary.Length; i++) {
                 if(t.removeWord(dictionary[i])) {
